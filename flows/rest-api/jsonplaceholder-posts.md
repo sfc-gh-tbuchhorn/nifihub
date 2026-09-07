@@ -20,12 +20,13 @@ Fetches posts from the [JSONPlaceholder](https://jsonplaceholder.typicode.com/po
 
 | Parameter | Default | Description |
 |---|---|---|
-| `Run Schedule` | `60 min` | How often to poll the API |
 | `API URL` | `https://jsonplaceholder.typicode.com/posts` | REST endpoint to fetch |
 | `Destination Database` | — | Snowflake database for the target table |
 | `Destination Schema` | — | Snowflake schema for the target table |
 | `Destination Table` | `POSTS` | Target table name |
 | `Snowflake Warehouse` | — | Warehouse used for ingestion |
+
+The polling schedule is hardcoded to 60 minutes in the ScheduleTrigger processor (NiFi scheduling fields do not support parameter references).
 
 ## Network Rules
 

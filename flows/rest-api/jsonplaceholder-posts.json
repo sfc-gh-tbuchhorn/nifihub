@@ -45,7 +45,7 @@
           "Mime Type": { "name": "Mime Type", "displayName": "Mime Type", "identifiesControllerService": false, "sensitive": false, "dynamic": false }
         },
         "style": {},
-        "schedulingPeriod": "#{Run Schedule}",
+        "schedulingPeriod": "60 min",
         "schedulingStrategy": "TIMER_DRIVEN",
         "executionNode": "PRIMARY",
         "penaltyDuration": "30 sec",

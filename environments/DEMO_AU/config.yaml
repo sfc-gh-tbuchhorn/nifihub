@@ -38,7 +38,6 @@ deployments:
             version: latest
             start: true
             parameters:
-              Run Schedule: "60 min"
               API URL: "https://jsonplaceholder.typicode.com/posts"
               Destination Database: "RAW"
               Destination Schema: "GITHUB"
