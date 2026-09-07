@@ -1,0 +1,356 @@
+{
+  "flowContents": {
+    "identifier": "jsonplaceholder-posts",
+    "instanceIdentifier": "a1b2c3d4-0001-1000-ffff-ffffe15f00d4",
+    "name": "JSONPlaceholder Posts",
+    "comments": "Fetches posts from jsonplaceholder.typicode.com and writes them to a Snowflake table.",
+    "position": {
+      "x": 0,
+      "y": 0
+    },
+    "processGroups": [],
+    "remoteProcessGroups": [],
+    "processors": [
+      {
+        "identifier": "generate-trigger",
+        "instanceIdentifier": "a1b2c3d4-0002-1000-0000-000000000001",
+        "name": "ScheduleTrigger",
+        "comments": "Triggers the REST API call on a configurable schedule.",
+        "position": {
+          "x": 0,
+          "y": 0
+        },
+        "type": "org.apache.nifi.processors.standard.GenerateFlowFile",
+        "bundle": {
+          "group": "org.apache.nifi",
+          "artifact": "nifi-standard-nar",
+          "version": "2.8.0"
+        },
+        "properties": {
+          "File Size": "0B",
+          "Batch Size": "1",
+          "Unique FlowFiles": "false",
+          "Custom Text": "trigger",
+          "Character Set": "UTF-8",
+          "Data Format": "Text",
+          "Mime Type": null
+        },
+        "propertyDescriptors": {
+          "File Size": { "name": "File Size", "displayName": "File Size", "identifiesControllerService": false, "sensitive": false, "dynamic": false },
+          "Batch Size": { "name": "Batch Size", "displayName": "Batch Size", "identifiesControllerService": false, "sensitive": false, "dynamic": false },
+          "Unique FlowFiles": { "name": "Unique FlowFiles", "displayName": "Unique FlowFiles", "identifiesControllerService": false, "sensitive": false, "dynamic": false },
+          "Custom Text": { "name": "Custom Text", "displayName": "Custom Text", "identifiesControllerService": false, "sensitive": false, "dynamic": false },
+          "Character Set": { "name": "Character Set", "displayName": "Character Set", "identifiesControllerService": false, "sensitive": false, "dynamic": false },
+          "Data Format": { "name": "Data Format", "displayName": "Data Format", "identifiesControllerService": false, "sensitive": false, "dynamic": false },
+          "Mime Type": { "name": "Mime Type", "displayName": "Mime Type", "identifiesControllerService": false, "sensitive": false, "dynamic": false }
+        },
+        "style": {},
+        "schedulingPeriod": "#{Run Schedule}",
+        "schedulingStrategy": "TIMER_DRIVEN",
+        "executionNode": "PRIMARY",
+        "penaltyDuration": "30 sec",
+        "yieldDuration": "1 sec",
+        "bulletinLevel": "WARN",
+        "runDurationMillis": 0,
+        "concurrentlySchedulableTaskCount": 1,
+        "autoTerminatedRelationships": [],
+        "scheduledState": "ENABLED",
+        "retryCount": 3,
+        "retriedRelationships": [],
+        "backoffMechanism": "PENALIZE_FLOWFILE",
+        "maxBackoffPeriod": "10 mins",
+        "componentType": "PROCESSOR",
+        "groupIdentifier": "a1b2c3d4-0001-1000-ffff-ffffe15f00d4"
+      },
+      {
+        "identifier": "invoke-http",
+        "instanceIdentifier": "a1b2c3d4-0002-1000-0000-000000000002",
+        "name": "FetchPosts",
+        "comments": "GET https://jsonplaceholder.typicode.com/posts",
+        "position": {
+          "x": 0,
+          "y": 200
+        },
+        "type": "org.apache.nifi.processors.standard.InvokeHTTP",
+        "bundle": {
+          "group": "org.apache.nifi",
+          "artifact": "nifi-standard-nar",
+          "version": "2.8.0"
+        },
+        "properties": {
+          "HTTP URL": "#{API URL}",
+          "HTTP Method": "GET",
+          "Response Body Attribute Name": null,
+          "Content-Type": "application/json",
+          "Connection Timeout": "30 secs",
+          "Read Timeout": "30 secs",
+          "Idle Timeout": "5 mins",
+          "Max Idle Connections": "5",
+          "Follow Redirects": "true",
+          "Send Message Body": "true",
+          "Response FlowFile Naming Strategy": "RANDOM",
+          "Response Cache Enabled": "false",
+          "Response Generation Required": "false",
+          "Response Header Request Attributes Enabled": "false"
+        },
+        "propertyDescriptors": {
+          "HTTP URL": { "name": "HTTP URL", "displayName": "HTTP URL", "identifiesControllerService": false, "sensitive": false, "dynamic": false },
+          "HTTP Method": { "name": "HTTP Method", "displayName": "HTTP Method", "identifiesControllerService": false, "sensitive": false, "dynamic": false },
+          "Response Body Attribute Name": { "name": "Response Body Attribute Name", "displayName": "Response Body Attribute Name", "identifiesControllerService": false, "sensitive": false, "dynamic": false },
+          "Content-Type": { "name": "Content-Type", "displayName": "Content-Type", "identifiesControllerService": false, "sensitive": false, "dynamic": false },
+          "Connection Timeout": { "name": "Connection Timeout", "displayName": "Connection Timeout", "identifiesControllerService": false, "sensitive": false, "dynamic": false },
+          "Read Timeout": { "name": "Read Timeout", "displayName": "Read Timeout", "identifiesControllerService": false, "sensitive": false, "dynamic": false },
+          "Idle Timeout": { "name": "Idle Timeout", "displayName": "Idle Timeout", "identifiesControllerService": false, "sensitive": false, "dynamic": false },
+          "Max Idle Connections": { "name": "Max Idle Connections", "displayName": "Max Idle Connections", "identifiesControllerService": false, "sensitive": false, "dynamic": false },
+          "Follow Redirects": { "name": "Follow Redirects", "displayName": "Follow Redirects", "identifiesControllerService": false, "sensitive": false, "dynamic": false },
+          "Send Message Body": { "name": "Send Message Body", "displayName": "Send Message Body", "identifiesControllerService": false, "sensitive": false, "dynamic": false },
+          "Response FlowFile Naming Strategy": { "name": "Response FlowFile Naming Strategy", "displayName": "Response FlowFile Naming Strategy", "identifiesControllerService": false, "sensitive": false, "dynamic": false },
+          "Response Cache Enabled": { "name": "Response Cache Enabled", "displayName": "Response Cache Enabled", "identifiesControllerService": false, "sensitive": false, "dynamic": false },
+          "Response Generation Required": { "name": "Response Generation Required", "displayName": "Response Generation Required", "identifiesControllerService": false, "sensitive": false, "dynamic": false },
+          "Response Header Request Attributes Enabled": { "name": "Response Header Request Attributes Enabled", "displayName": "Response Header Request Attributes Enabled", "identifiesControllerService": false, "sensitive": false, "dynamic": false }
+        },
+        "style": {},
+        "schedulingPeriod": "0 sec",
+        "schedulingStrategy": "TIMER_DRIVEN",
+        "executionNode": "ALL",
+        "penaltyDuration": "30 sec",
+        "yieldDuration": "1 sec",
+        "bulletinLevel": "WARN",
+        "runDurationMillis": 0,
+        "concurrentlySchedulableTaskCount": 1,
+        "autoTerminatedRelationships": [
+          "Original",
+          "No Retry",
+          "Failure"
+        ],
+        "scheduledState": "ENABLED",
+        "retryCount": 3,
+        "retriedRelationships": ["Retry"],
+        "backoffMechanism": "PENALIZE_FLOWFILE",
+        "maxBackoffPeriod": "10 mins",
+        "componentType": "PROCESSOR",
+        "groupIdentifier": "a1b2c3d4-0001-1000-ffff-ffffe15f00d4"
+      },
+      {
+        "identifier": "split-json",
+        "instanceIdentifier": "a1b2c3d4-0002-1000-0000-000000000003",
+        "name": "SplitJsonArray",
+        "comments": "Splits the JSON array response into individual post records.",
+        "position": {
+          "x": 0,
+          "y": 400
+        },
+        "type": "org.apache.nifi.processors.standard.SplitJson",
+        "bundle": {
+          "group": "org.apache.nifi",
+          "artifact": "nifi-standard-nar",
+          "version": "2.8.0"
+        },
+        "properties": {
+          "JsonPath Expression": "$.*"
+        },
+        "propertyDescriptors": {
+          "JsonPath Expression": { "name": "JsonPath Expression", "displayName": "JsonPath Expression", "identifiesControllerService": false, "sensitive": false, "dynamic": false }
+        },
+        "style": {},
+        "schedulingPeriod": "0 sec",
+        "schedulingStrategy": "TIMER_DRIVEN",
+        "executionNode": "ALL",
+        "penaltyDuration": "30 sec",
+        "yieldDuration": "1 sec",
+        "bulletinLevel": "WARN",
+        "runDurationMillis": 25,
+        "concurrentlySchedulableTaskCount": 1,
+        "autoTerminatedRelationships": [
+          "original",
+          "failure"
+        ],
+        "scheduledState": "ENABLED",
+        "retryCount": 3,
+        "retriedRelationships": [],
+        "backoffMechanism": "PENALIZE_FLOWFILE",
+        "maxBackoffPeriod": "10 mins",
+        "componentType": "PROCESSOR",
+        "groupIdentifier": "a1b2c3d4-0001-1000-ffff-ffffe15f00d4"
+      },
+      {
+        "identifier": "put-snowflake",
+        "instanceIdentifier": "a1b2c3d4-0002-1000-0000-000000000004",
+        "name": "PutToSnowflake",
+        "comments": "Writes each JSON post record to the configured Snowflake table.",
+        "position": {
+          "x": 0,
+          "y": 600
+        },
+        "type": "com.snowflake.openflow.runtime.processors.snowflake.PutSnowflake",
+        "bundle": {
+          "group": "com.snowflake.openflow",
+          "artifact": "nifi-snowflake-nar",
+          "version": "2.8.0"
+        },
+        "properties": {
+          "Database": "#{Destination Database}",
+          "Schema": "#{Destination Schema}",
+          "Table": "#{Destination Table}",
+          "Warehouse": "#{Snowflake Warehouse}",
+          "Authentication Strategy": "SNOWFLAKE_MANAGED",
+          "Input Format": "JSON"
+        },
+        "propertyDescriptors": {
+          "Database": { "name": "Database", "displayName": "Database", "identifiesControllerService": false, "sensitive": false, "dynamic": false },
+          "Schema": { "name": "Schema", "displayName": "Schema", "identifiesControllerService": false, "sensitive": false, "dynamic": false },
+          "Table": { "name": "Table", "displayName": "Table", "identifiesControllerService": false, "sensitive": false, "dynamic": false },
+          "Warehouse": { "name": "Warehouse", "displayName": "Warehouse", "identifiesControllerService": false, "sensitive": false, "dynamic": false },
+          "Authentication Strategy": { "name": "Authentication Strategy", "displayName": "Authentication Strategy", "identifiesControllerService": false, "sensitive": false, "dynamic": false },
+          "Input Format": { "name": "Input Format", "displayName": "Input Format", "identifiesControllerService": false, "sensitive": false, "dynamic": false }
+        },
+        "style": {},
+        "schedulingPeriod": "0 sec",
+        "schedulingStrategy": "TIMER_DRIVEN",
+        "executionNode": "ALL",
+        "penaltyDuration": "30 sec",
+        "yieldDuration": "1 sec",
+        "bulletinLevel": "WARN",
+        "runDurationMillis": 0,
+        "concurrentlySchedulableTaskCount": 1,
+        "autoTerminatedRelationships": [
+          "success",
+          "failure"
+        ],
+        "scheduledState": "ENABLED",
+        "retryCount": 3,
+        "retriedRelationships": ["failure"],
+        "backoffMechanism": "PENALIZE_FLOWFILE",
+        "maxBackoffPeriod": "10 mins",
+        "componentType": "PROCESSOR",
+        "groupIdentifier": "a1b2c3d4-0001-1000-ffff-ffffe15f00d4"
+      }
+    ],
+    "inputPorts": [],
+    "outputPorts": [],
+    "connections": [
+      {
+        "identifier": "conn-trigger-to-fetch",
+        "instanceIdentifier": "a1b2c3d4-0003-1000-0000-000000000001",
+        "name": "",
+        "source": {
+          "id": "generate-trigger",
+          "type": "PROCESSOR",
+          "groupId": "a1b2c3d4-0001-1000-ffff-ffffe15f00d4",
+          "name": "ScheduleTrigger",
+          "comments": "",
+          "instanceIdentifier": "a1b2c3d4-0002-1000-0000-000000000001"
+        },
+        "destination": {
+          "id": "invoke-http",
+          "type": "PROCESSOR",
+          "groupId": "a1b2c3d4-0001-1000-ffff-ffffe15f00d4",
+          "name": "FetchPosts",
+          "comments": "",
+          "instanceIdentifier": "a1b2c3d4-0002-1000-0000-000000000002"
+        },
+        "labelIndex": 0,
+        "zIndex": 1,
+        "selectedRelationships": ["success"],
+        "backPressureObjectThreshold": 10000,
+        "backPressureDataSizeThreshold": "1 GB",
+        "flowFileExpiration": "0 sec",
+        "prioritizers": [],
+        "bends": [],
+        "loadBalanceStrategy": "DO_NOT_LOAD_BALANCE",
+        "partitioningAttribute": "",
+        "loadBalanceCompression": "DO_NOT_COMPRESS",
+        "componentType": "CONNECTION",
+        "groupIdentifier": "a1b2c3d4-0001-1000-ffff-ffffe15f00d4"
+      },
+      {
+        "identifier": "conn-fetch-to-split",
+        "instanceIdentifier": "a1b2c3d4-0003-1000-0000-000000000002",
+        "name": "",
+        "source": {
+          "id": "invoke-http",
+          "type": "PROCESSOR",
+          "groupId": "a1b2c3d4-0001-1000-ffff-ffffe15f00d4",
+          "name": "FetchPosts",
+          "comments": "",
+          "instanceIdentifier": "a1b2c3d4-0002-1000-0000-000000000002"
+        },
+        "destination": {
+          "id": "split-json",
+          "type": "PROCESSOR",
+          "groupId": "a1b2c3d4-0001-1000-ffff-ffffe15f00d4",
+          "name": "SplitJsonArray",
+          "comments": "",
+          "instanceIdentifier": "a1b2c3d4-0002-1000-0000-000000000003"
+        },
+        "labelIndex": 0,
+        "zIndex": 2,
+        "selectedRelationships": ["Response"],
+        "backPressureObjectThreshold": 10000,
+        "backPressureDataSizeThreshold": "1 GB",
+        "flowFileExpiration": "0 sec",
+        "prioritizers": [],
+        "bends": [],
+        "loadBalanceStrategy": "DO_NOT_LOAD_BALANCE",
+        "partitioningAttribute": "",
+        "loadBalanceCompression": "DO_NOT_COMPRESS",
+        "componentType": "CONNECTION",
+        "groupIdentifier": "a1b2c3d4-0001-1000-ffff-ffffe15f00d4"
+      },
+      {
+        "identifier": "conn-split-to-snowflake",
+        "instanceIdentifier": "a1b2c3d4-0003-1000-0000-000000000003",
+        "name": "",
+        "source": {
+          "id": "split-json",
+          "type": "PROCESSOR",
+          "groupId": "a1b2c3d4-0001-1000-ffff-ffffe15f00d4",
+          "name": "SplitJsonArray",
+          "comments": "",
+          "instanceIdentifier": "a1b2c3d4-0002-1000-0000-000000000003"
+        },
+        "destination": {
+          "id": "put-snowflake",
+          "type": "PROCESSOR",
+          "groupId": "a1b2c3d4-0001-1000-ffff-ffffe15f00d4",
+          "name": "PutToSnowflake",
+          "comments": "",
+          "instanceIdentifier": "a1b2c3d4-0002-1000-0000-000000000004"
+        },
+        "labelIndex": 0,
+        "zIndex": 3,
+        "selectedRelationships": ["split"],
+        "backPressureObjectThreshold": 10000,
+        "backPressureDataSizeThreshold": "1 GB",
+        "flowFileExpiration": "0 sec",
+        "prioritizers": [],
+        "bends": [],
+        "loadBalanceStrategy": "DO_NOT_LOAD_BALANCE",
+        "partitioningAttribute": "",
+        "loadBalanceCompression": "DO_NOT_COMPRESS",
+        "componentType": "CONNECTION",
+        "groupIdentifier": "a1b2c3d4-0001-1000-ffff-ffffe15f00d4"
+      }
+    ],
+    "labels": [],
+    "funnels": [],
+    "controllerServices": [],
+    "parameterContexts": [],
+    "defaultFlowFileExpiration": "0 sec",
+    "defaultBackPressureObjectThreshold": 10000,
+    "defaultBackPressureDataSizeThreshold": "1 GB",
+    "scheduledState": "ENABLED",
+    "executionEngine": "INHERITED",
+    "maxConcurrentTasks": 1,
+    "statelessFlowTimeout": "1 min",
+    "flowFileConcurrency": "UNBOUNDED",
+    "flowFileOutboundPolicy": "STREAM_WHEN_AVAILABLE",
+    "componentType": "PROCESS_GROUP"
+  },
+  "snapshotMetadata": {
+    "bucketIdentifier": "rest-api",
+    "flowIdentifier": "jsonplaceholder-posts",
+    "version": 1,
+    "comments": "Initial version — fetches posts from JSONPlaceholder REST API and writes to Snowflake."
+  }
+}

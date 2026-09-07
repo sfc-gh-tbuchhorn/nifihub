@@ -1,0 +1,46 @@
+# yaml-language-server: $schema=../schema.json
+# Dev environment — AU_DEMO92
+account:
+  name: AU_DEMO92
+  github_environment: DEMO_AU
+
+deployments:
+  - name: DEV_DEPLOYMENT
+    deployment_type: SNOWFLAKE
+    runtimes:
+      - name: DEV_RUNTIME
+        database: RAW
+        schema: GITHUB
+        node_type: SMALL
+        min_nodes: 1
+        max_nodes: 1
+        network_rules:
+          - name: JSONPLACEHOLDER_API
+            type: HOST_PORT
+            mode: EGRESS
+            values:
+              - "jsonplaceholder.typicode.com:443"
+        flow_registries:
+          - name: nifihub
+            type: org.apache.nifi.github.GitHubFlowRegistryClient
+            properties:
+              Repository Owner: Snowflake-Labs
+              Repository Name: nifihub
+              Authentication Type: PERSONAL_ACCESS_TOKEN
+              Personal Access Token: ${{ secrets.NIFIHUB_REGISTRY_PAT }}
+              Default Branch: main
+              Repository Path: flows
+        flows:
+          - name: "JSONPlaceholder Posts"
+            registry: nifihub
+            bucket: rest-api
+            flow: jsonplaceholder-posts
+            version: latest
+            start: true
+            parameters:
+              Run Schedule: "60 min"
+              API URL: "https://jsonplaceholder.typicode.com/posts"
+              Destination Database: "RAW"
+              Destination Schema: "GITHUB"
+              Destination Table: "POSTS"
+              Snowflake Warehouse: "TEST"
