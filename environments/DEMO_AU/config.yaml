@@ -5,12 +5,12 @@ account:
   github_environment: DEMO_AU
 
 deployments:
-  - name: DEV_DEPLOYMENT
+  - name: OPENFLOW_DEV
     deployment_type: SNOWFLAKE
     runtimes:
       - name: DEV_RUNTIME
-        database: RAW
-        schema: GITHUB
+        database: OPENFLOW
+        schema: OPENFLOW
         node_type: SMALL
         min_nodes: 1
         max_nodes: 1
