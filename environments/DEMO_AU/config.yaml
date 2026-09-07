@@ -24,7 +24,7 @@ deployments:
           - name: nifihub
             type: org.apache.nifi.github.GitHubFlowRegistryClient
             properties:
-              Repository Owner: Snowflake-Labs
+              Repository Owner: sfc-gh-tbuchhorn
               Repository Name: nifihub
               Authentication Type: PERSONAL_ACCESS_TOKEN
               Personal Access Token: ${{ secrets.NIFIHUB_REGISTRY_PAT }}
