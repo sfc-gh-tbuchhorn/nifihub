@@ -121,11 +121,12 @@
         "autoTerminatedRelationships": [
           "Original",
           "No Retry",
-          "Failure"
+          "Failure",
+          "Retry"
         ],
         "scheduledState": "ENABLED",
         "retryCount": 3,
-        "retriedRelationships": ["Retry"],
+        "retriedRelationships": [],
         "backoffMechanism": "PENALIZE_FLOWFILE",
         "maxBackoffPeriod": "10 mins",
         "componentType": "PROCESSOR",
@@ -335,7 +336,58 @@
     "labels": [],
     "funnels": [],
     "controllerServices": [],
-    "parameterContexts": [],
+    "parameterContextName": "JSONPlaceholder Posts",
+    "parameterContexts": [
+      {
+        "identifier": "ctx-jsonplaceholder-posts",
+        "instanceIdentifier": "a1b2c3d4-0004-1000-0000-000000000001",
+        "name": "JSONPlaceholder Posts",
+        "parameters": [
+          {
+            "parameter": {
+              "name": "API URL",
+              "description": "REST endpoint to fetch",
+              "sensitive": false,
+              "value": "https://jsonplaceholder.typicode.com/posts"
+            }
+          },
+          {
+            "parameter": {
+              "name": "Destination Database",
+              "description": "Snowflake database for the target table",
+              "sensitive": false,
+              "value": ""
+            }
+          },
+          {
+            "parameter": {
+              "name": "Destination Schema",
+              "description": "Snowflake schema for the target table",
+              "sensitive": false,
+              "value": ""
+            }
+          },
+          {
+            "parameter": {
+              "name": "Destination Table",
+              "description": "Target table name",
+              "sensitive": false,
+              "value": "POSTS"
+            }
+          },
+          {
+            "parameter": {
+              "name": "Snowflake Warehouse",
+              "description": "Warehouse used for ingestion",
+              "sensitive": false,
+              "value": ""
+            }
+          }
+        ],
+        "inheritedParameterContexts": [],
+        "componentType": "PARAMETER_CONTEXT"
+      }
+    ],
     "defaultFlowFileExpiration": "0 sec",
     "defaultBackPressureObjectThreshold": 10000,
     "defaultBackPressureDataSizeThreshold": "1 GB",
